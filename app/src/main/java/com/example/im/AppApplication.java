@@ -1,6 +1,8 @@
 package com.example.im;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 public class AppApplication extends Application {
     private static Application application;
@@ -13,5 +15,11 @@ public class AppApplication extends Application {
 
     public static Application getInstance() {
         return application;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 }
