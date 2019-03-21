@@ -16,7 +16,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/content"
+                android:id="@+id/log_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Hello World!\nHello World!"
@@ -24,4 +24,13 @@
                 android:textSize="10sp" />
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/paste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:alpha="0.5"
+        android:text="粘贴地址" />
 </RelativeLayout>
