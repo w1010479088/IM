@@ -6,6 +6,6 @@ import com.example.im.AppApplication;
 
 public class ToastEx {
     public static void show(String content) {
-        Toast.makeText(AppApplication.getInstance(), content, Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppApplication.Companion.getInstance(), content, Toast.LENGTH_SHORT).show();
     }
 }
