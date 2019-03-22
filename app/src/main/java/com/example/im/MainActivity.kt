@@ -10,6 +10,7 @@ import com.example.im.widget.ViewHelper
 
 class MainActivity : AppCompatActivity() {
     private val IP = "wss://50.lrlz.com:8080"
+    private val TOKEN = "ygfQL7QJbYBgFezxWYQKNChQJNN9BwDUn1OETt0JUKFvYrbVnSlCZtEsRJZ/mrxh"
     private val mBuilder = StringBuilder()
     private var mHelper: ViewHelper? = null
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val im = ImCenter(IP)
+        val im = ImCenter(IP, TOKEN)
         im.setLogListener(object : OnLogListener {
             override fun log(content: String) {
                 logContent(content)

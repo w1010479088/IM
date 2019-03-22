@@ -1,34 +1,36 @@
 package com.example.im.service
 
 import com.example.im.MainHandler
+import com.example.im.model.AuthorModel
 import com.example.im.model.MessageSending
 import com.example.im.model.OnLogListener
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 
-class ImCenter(ip: String) {
-    private var mClient: WebSocketClient? = null
+class ImCenter(ip: String, token: String) {
+    private lateinit var mClient: WebSocketClient
     private var mLogListener: OnLogListener? = null
 
     init {
-        val uri = URI.create(ip)
+        val uri = URI(ip)
         try {
             mClient = object : WebSocketClient(uri) {
                 override fun onOpen(serverHandshake: ServerHandshake) {
-                    log(serverHandshake.toString())
+                    log("onOpen--->$serverHandshake")
+                    send(AuthorModel(token).toString())
                 }
 
                 override fun onMessage(s: String) {
-                    log(s)
+                    log("onMessage--->$s")
                 }
 
                 override fun onClose(i: Int, s: String, b: Boolean) {
-                    log("$s|$i|$b")
+                    log("onClose--->$s|$i|$b")
                 }
 
                 override fun onError(e: Exception) {
-                    log(e.message)
+                    log("onError--->${e.message}")
                 }
             }
         } catch (ex: Exception) {
@@ -42,20 +44,20 @@ class ImCenter(ip: String) {
     }
 
     fun connect() {
-        if (!mClient!!.isOpen) {
-            mClient!!.connect()
+        if (!mClient.isOpen && !mClient.isClosed) {
+            mClient.connect()
         }
     }
 
     fun disconnect() {
-        if (mClient!!.isOpen) {
-            mClient!!.close()
+        if (mClient.isOpen) {
+            mClient.close()
         }
     }
 
     fun send(msg: MessageSending) {
-        if (mClient!!.isOpen) {
-            mClient!!.send(msg.toString())
+        if (mClient.isOpen) {
+            mClient.send(msg.toString())
         }
     }
 
